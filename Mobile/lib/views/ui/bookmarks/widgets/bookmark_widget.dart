@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
+import 'package:job_app/constants/app_constants.dart';
+import 'package:job_app/models/response/bookmarks/all_bookmark.dart';
+import 'package:job_app/views/common/exports.dart';
+import 'package:job_app/views/common/width_spacer.dart';
+import 'package:job_app/views/ui/jobs/job_page.dart';
+
+class BookMarkTileWidget extends StatelessWidget {
+  const BookMarkTileWidget({super.key, required this.bookmark});
+
+  final AllBookmark bookmark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: GestureDetector(
+        onTap: () {
+          Get.to(()=> JobPage(title: bookmark.job.title, id: bookmark.job.id));
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.h),
+          height: height * 0.15,
+          width: width,
+          color: Color(kLightGrey.value),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(bookmark.job.imageUrl),
+                      ),
+                      const WidthSpacer(width: 10),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                              text: bookmark.job.company,
+                              style: appstyle(
+                                  20, Color(kDark.value), FontWeight.w600)),
+                          SizedBox(
+                            width: width * 0.5,
+                            child: ReusableText(
+                                text: bookmark.job.title,
+                                style: appstyle(20, Color(kDarkGrey.value),
+                                    FontWeight.w600)),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  CircleAvatar(
+                    radius: 18,
+                    child: Icon(
+                      Ionicons.chevron_forward,
+                      color: Color(kOrange.value),
+                    ),
+                  )
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 65.w),
+                child: Row(
+                  children: [
+                    ReusableText(
+                        text: bookmark.job.salary,
+                        style:
+                            appstyle(22, Color(kDark.value), FontWeight.w600)),
+                    ReusableText(
+                        text: "/${bookmark.job.period}",
+                        style: appstyle(
+                            22, Color(kDarkGrey.value), FontWeight.w600)),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

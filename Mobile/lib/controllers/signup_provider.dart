@@ -37,25 +37,24 @@ class SignUpNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  final signUpFormKey = GlobalKey<FormState>();
+//   final signUpFormKey = GlobalKey<FormState>();
 
-  bool passwordValidator(String password) {
-    if (password.isEmpty) return false;
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(password);
-  }
+//   bool passwordValidator(String password) {
+//     if (password.isEmpty) return false;
+//     String pattern =
+//         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+//     RegExp regex = RegExp(pattern);
+//     return regex.hasMatch(password);
+//   }
 
-  bool validateAndSave() {
-    final form = signUpFormKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+//   bool validateAndSave() {
+//   final form = signUpFormKey.currentState;
+//   if (form != null && form.validate()) {
+//     form.save();
+//     return true;
+//   }
+//   return false;
+// }
 
   upSignUp(SignUpModel model) {
     AuthHelper.signUp(model).then((value) {

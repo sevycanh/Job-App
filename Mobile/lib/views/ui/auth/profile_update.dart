@@ -1,13 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+
 import 'package:job_app/constants/app_constants.dart';
 import 'package:job_app/controllers/exports.dart';
 import 'package:job_app/views/common/app_bar.dart';
-import 'package:provider/provider.dart';
 
 import '../../../models/request/auth/profile_update_model.dart';
 import '../../common/app_style.dart';
@@ -17,7 +19,11 @@ import '../../common/height_spacer.dart';
 import '../../common/reusable_text.dart';
 
 class ProfileUpdate extends StatefulWidget {
-  const ProfileUpdate({super.key});
+  final String profile;
+  const ProfileUpdate({
+    Key? key,
+    required this.profile,
+  }) : super(key: key);
 
   @override
   State<ProfileUpdate> createState() => _ProfileUpdateState();
@@ -70,21 +76,19 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       style: appstyle(35, Color(kDark.value), FontWeight.bold)),
                   Consumer<ImageUploader>(
                     builder: (context, imageUploader, child) {
-                      return imageUploader.imageFil.isEmpty
+                      return imageUploader.imageFil.isEmpty && widget.profile.isNotEmpty
                           ? GestureDetector(
                               onTap: () {
                                 imageUploader.pickImage();
                               },
                               child: CircleAvatar(
                                 backgroundColor: Color(kLightBlue.value),
-                                child: const Center(
-                                  child: Icon(Icons.photo_filter_rounded),
-                                ),
+                                child: Image.network(widget.profile),
                               ),
                             )
                           : GestureDetector(
                               onTap: () {
-                                imageUploader.imageFil.clear();
+                                imageUploader.pickImage();
                               },
                               child: CircleAvatar(
                                 backgroundColor: Color(kLightBlue.value),

@@ -51,9 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                   : const SizedBox.shrink(),
             ),
           ),
-          body: Form(
-            key: loginNotifier.loginFormKey,
-            child: Padding(
+          body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -120,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   const HeightSpacer(size: 50),
                   CustomButton(
                     onTap: () {
-                      if (loginNotifier.validateAndSave()) {
+                      if (email.text.isNotEmpty && password.text.isNotEmpty) {
                         LoginModel model = LoginModel(
                             email: email.text, password: password.text);
             
@@ -138,7 +136,6 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-          ),
         );
       },
     );

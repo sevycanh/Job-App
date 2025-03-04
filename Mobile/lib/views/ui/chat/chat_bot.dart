@@ -22,6 +22,24 @@ class ChatBot extends StatefulWidget {
 
 class _ChatBotState extends State<ChatBot> {
   final _controller = TextEditingController();
+  late ScrollController chatBotScrollController;
+  @override
+  void initState() {
+    super.initState();
+    chatBotScrollController = ScrollController();
+  }
+ void _scrollDown() {
+    chatBotScrollController.animateTo(
+      chatBotScrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+  @override
+  void dispose() {
+    chatBotScrollController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +62,12 @@ class _ChatBotState extends State<ChatBot> {
               Expanded(
                 child: Consumer<ChatNotifier>(
                   builder: (BuildContext context, chatNotifier, Widget? child) {
+                    if (Provider.of<ChatNotifier>(context, listen: false).isScroll) {
+                      _scrollDown();
+                    }
                     return ListView.builder(
                       itemCount: chatNotifier.chatBotMessages.length,
-                      controller: chatNotifier.chatBotScrollController,
+                      controller: chatBotScrollController,
                       itemBuilder: (context, index) {
                         final data = chatNotifier.chatBotMessages[index];
                         return Padding(
@@ -88,7 +109,7 @@ class _ChatBotState extends State<ChatBot> {
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(12.h),
+                  padding: EdgeInsets.all(10.h),
                   alignment: Alignment.bottomCenter,
                   child: MessageTextField(
                     messageController: _controller,
@@ -107,6 +128,7 @@ class _ChatBotState extends State<ChatBot> {
                     ),
                     onSubmitted: (p0) {
                       String msg = _controller.text;
+                      Provider.of<ChatNotifier>(context, listen: false).isScroll = false;
                       Provider.of<ChatNotifier>(context, listen: false)
                           .askQuestion(msg);
                       _controller.clear();

@@ -57,9 +57,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Form(
-              key: signUpNotifier.signUpFormKey,
-              child: ListView(
+            child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
                   const HeightSpacer(size: 50),
@@ -137,7 +135,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   CustomButton(
                     onTap: () {
                       loginNotifier.firstTime = !loginNotifier.firstTime;
-                      if (signUpNotifier.validateAndSave()) {
+                      if (name.text.isNotEmpty &&
+                          email.text.isNotEmpty &&
+                          password.text.isNotEmpty) {
                         SignUpModel model = SignUpModel(
                             username: name.text,
                             email: email.text,
@@ -155,7 +155,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   )
                 ],
               ),
-            ),
           ),
         );
       },

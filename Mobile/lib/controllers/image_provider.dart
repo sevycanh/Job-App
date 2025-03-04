@@ -27,6 +27,7 @@ class ImageUploader extends ChangeNotifier {
       // Crop the image
       _imageFile = await cropImage(_imageFile);
       if (_imageFile != null) {
+        imageFil.clear();
         imageFil.add(_imageFile.path);
         imageUpload(_imageFile);
         imagePath = _imageFile.path;

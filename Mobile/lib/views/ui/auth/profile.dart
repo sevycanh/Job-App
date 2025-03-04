@@ -112,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             GestureDetector(
                               onTap: () {
                                 profile = userData.skills;
-                                Get.to(() => ProfileUpdate());
+                                Get.to(() => ProfileUpdate(profile: userData.profile));
                               },
                               child: const Icon(
                                 Feather.edit,

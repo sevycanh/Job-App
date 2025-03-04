@@ -26,15 +26,8 @@ class ChatNotifier extends ChangeNotifier {
     ChatBotMessages(
         msg: 'Hello. How can I help you?', msgType: MessageType.bot),
   ];
-  final chatBotScrollController = ScrollController();
 
-  void _scrollDown() {
-    chatBotScrollController.animateTo(
-      chatBotScrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
-  }
+  bool isScroll = false;
 
   Future<void> askQuestion(String question) async {
     if (question.isNotEmpty) {
@@ -43,7 +36,8 @@ class ChatNotifier extends ChangeNotifier {
       _chatBotMessages.add(ChatBotMessages(msg: '', msgType: MessageType.bot));
       notifyListeners();
       await Future.delayed(Duration(milliseconds: 100));
-      _scrollDown();
+      isScroll = true;
+      notifyListeners();
 
       final answer = await ChatHelper.getAnswerWithGemini(question);
       _chatBotMessages.removeLast();
@@ -51,7 +45,8 @@ class ChatNotifier extends ChangeNotifier {
           .add(ChatBotMessages(msg: answer, msgType: MessageType.bot));
       notifyListeners();
       await Future.delayed(Duration(milliseconds: 100));
-      _scrollDown();
+      isScroll = true;
+      notifyListeners();
     }
   }
 

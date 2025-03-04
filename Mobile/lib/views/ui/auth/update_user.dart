@@ -47,9 +47,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     return Scaffold(
       body: Consumer<LoginNotifier>(
         builder: (context, loginNotifier, child) {
-          return Form(
-            key: loginNotifier.profileFormKey,
-            child: ListView(
+          return ListView(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
               children: [
                 Row(
@@ -221,8 +219,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       )
                     ]))
               ],
-            ),
-          );
+            );
         },
       ),
     );

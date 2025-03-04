@@ -45,31 +45,28 @@ class LoginNotifier extends ChangeNotifier {
     loggedIn = preferences.getBool('loggedIn') ?? false;
   }
 
-  final loginFormKey = GlobalKey<FormState>();
-  final profileFormKey = GlobalKey<FormState>();
+//   final loginFormKey = GlobalKey<FormState>();
+//   final profileFormKey = GlobalKey<FormState>();
 
-  bool validateAndSave() {
-    final form = loginFormKey.currentState;
+//   bool validateAndSave() {
+//   final form = loginFormKey.currentState;
+//   if (form != null && form.validate()) {
+//     form.save();
+//     return true;
+//   }
+//   return false;
+// }
 
-    if (form!.validate()) {
-    // if (form != null && form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+//   bool profileValidate() {
+//     final form = profileFormKey.currentState;
 
-  bool profileValidate() {
-    final form = profileFormKey.currentState;
-
-    if (form!.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+//     if (form!.validate()) {
+//       form.save();
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }
 
   userLogin(LoginModel model) {
     AuthHelper.login(model).then((response) {

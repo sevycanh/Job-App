@@ -17,4 +17,6 @@ double width = 375.w;
 
 List<String> profile = [];
 
-String GEMINI_API_KEY = 'AIzaSyDBj8QUuZxol3s-aGIaKzvN6Cjdw4ljhZw';
+String GEMINI_API_KEY = '';
+
+//AIzaSyDBj8QUuZxol3s-aGIaKzvN6Cjdw4ljhZw
